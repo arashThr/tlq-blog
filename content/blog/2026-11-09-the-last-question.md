@@ -2,6 +2,8 @@
 date = "2026-11-09T19:56:01.856Z"
 title = "The Last Question"
 image = "/images/1794254900029-science-fiction-quarterly-195611.webp"
+tags = ["science", "science fiction", "future", "Artificial Intelligence"]
+description = "The Last Question and what is next for humanity."
 +++
 
 It's a [short story](https://users.ece.cmu.edu/~gamvrosi/thelastq.html) by Isaac Asimov, and we decided to name our podcast after it. I draw a lot of optimism and hope from that story.
