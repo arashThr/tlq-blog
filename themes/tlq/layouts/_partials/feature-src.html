@@ -1,0 +1,41 @@
+{{- $page := . -}}
+{{- $src := "" -}}
+{{- $width := "" -}}
+{{- $height := "" -}}
+
+{{- $raw := or $page.Params.featured_image (or $page.Params.image $page.Params.cover) -}}
+{{- if $raw -}}
+  {{- if and (not (hasPrefix $raw "http://")) (not (hasPrefix $raw "https://")) (not (hasPrefix $raw "/")) -}}
+    {{- with $page.Resources.Get $raw -}}
+      {{- $processed := . -}}
+      {{- if and (eq .ResourceType "image") (ne .MediaType.SubType "svg") (gt .Width 1200) -}}
+        {{- $processed = .Resize "1200x q75" -}}
+      {{- end -}}
+      {{- $src = $processed.RelPermalink -}}
+      {{- $width = printf "%d" $processed.Width -}}
+      {{- $height = printf "%d" $processed.Height -}}
+    {{- else -}}
+      {{- $src = $raw | relURL -}}
+    {{- end -}}
+  {{- else if or (hasPrefix $raw "http://") (hasPrefix $raw "https://") -}}
+    {{- $src = $raw -}}
+  {{- else -}}
+    {{- if fileExists (printf "static%s" $raw) -}}
+      {{- $src = $raw | relURL -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if not $src -}}
+  {{- with or ($page.Resources.GetMatch "featured*") (or ($page.Resources.GetMatch "cover*") ($page.Resources.GetMatch "feature*")) -}}
+    {{- $processed := . -}}
+    {{- if and (eq .ResourceType "image") (ne .MediaType.SubType "svg") (gt .Width 1200) -}}
+      {{- $processed = .Resize "1200x q75" -}}
+    {{- end -}}
+    {{- $src = $processed.RelPermalink -}}
+    {{- $width = printf "%d" $processed.Width -}}
+    {{- $height = printf "%d" $processed.Height -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return dict "src" $src "width" $width "height" $height -}}

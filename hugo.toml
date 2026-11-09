@@ -1,0 +1,38 @@
+baseURL = 'https://example.org/'
+locale = 'en-us'
+# Short name in the masthead. The longer name lives in params.tagline.
+title = 'TLQ'
+theme = 'tlq'
+
+[params]
+  tagline = 'The Last Question'
+  description = 'A weblog for the TLQ podcast.'
+  # Sidebar introduction. Plain text or Markdown.
+  about = 'The Last Question is a podcast. This is the weblog beside it. New notes are published here, one at a time.'
+  # Optional name used in the footer line. Leave blank to use the site title.
+  byline = ''
+  # Paste a show or feed URL when you have one. Leave blank to hide the panel.
+  podcast_url = ''
+  podcast_label = 'Listen to the show'
+  # Home lists this many notes, then pages. The archive lists page at archive_paginate.
+  # Colors and type live in themes/tlq/assets/css/main.css, in the :root block.
+  home_paginate = 6
+  archive_paginate = 25
+  recent_count = 8
+  excerpt_words = 46
+
+  # Extra links for the right-hand column. Uncomment to add one.
+  # [[params.links]]
+  #   name = 'Example'
+  #   url = 'https://example.org/'
+
+[menus]
+  [[menus.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
+
+  [[menus.main]]
+    name = 'Archive'
+    pageRef = '/posts'
+    weight = 20

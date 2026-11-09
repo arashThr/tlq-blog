@@ -1,0 +1,41 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{- $cfg := partialCached "config.html" site.Home -}}
+{{/* theme-color matches --wash in assets/css/main.css */}}
+<meta name="theme-color" content="#f6efe8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="{{ $cfg.fonts_url }}" rel="stylesheet">
+{{- $desc := "" -}}
+{{- if .IsHome -}}
+  {{- $desc = $cfg.description | default $cfg.tagline | default site.Title -}}
+{{- else -}}
+  {{- $desc = .Description | default .Summary -}}
+{{- end -}}
+{{- $desc = $desc | plainify | replaceRE `\s+` " " | strings.TrimSpace -}}
+<title>{{ if .IsHome }}{{ site.Title }}{{ with $cfg.tagline }} · {{ . }}{{ end }}{{ else }}{{ printf "%s · %s" .Title site.Title }}{{ end }}</title>
+{{- with $desc }}
+  <meta name="description" content="{{ . }}">
+{{- end }}
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+{{- with .OutputFormats.Get "rss" }}
+  <link rel="alternate" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ site.Title }}">
+{{- end }}
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ with $cfg.tagline }} · {{ . }}{{ end }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:type" content="{{ if eq .Kind "page" }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{- with $desc }}
+  <meta property="og:description" content="{{ . }}">
+{{- end }}
+{{- $imagePage := . -}}
+{{- if .IsHome -}}
+  {{- with index (where site.RegularPages "Section" "posts") 0 -}}
+    {{- $imagePage = . -}}
+  {{- end -}}
+{{- end }}
+{{- $feature := partial "feature-src.html" $imagePage -}}
+{{- with $feature.src }}
+  <meta property="og:image" content="{{ . | absURL }}">
+{{- end }}
+{{ partialCached "head/css.html" . }}

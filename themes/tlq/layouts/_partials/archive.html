@@ -1,0 +1,29 @@
+{{- $page := . -}}
+{{- $cfg := partialCached "config.html" site.Home -}}
+{{- $size := $cfg.archive_paginate -}}
+<header class="post-head">
+  {{- if eq $page.Kind "term" }}
+    <p class="kicker">{{ $page.Data.Singular | title }}</p>
+  {{- end }}
+  <h1 class="post-title">{{ $page.Title }}</h1>
+</header>
+{{- with $page.Content }}
+  <div class="prose plain">{{ . }}</div>
+{{- end }}
+{{- if not $page.Pages }}
+  <p class="empty">Nothing filed here yet.</p>
+{{- else if gt (len $page.Pages) $size }}
+  {{- $pager := $page.Paginate $page.Pages $size -}}
+  <ol class="archive">
+    {{- range $pager.Pages }}
+      {{ partial "archive-item.html" . }}
+    {{- end }}
+  </ol>
+  {{ partial "pagination.html" $pager }}
+{{- else }}
+  <ol class="archive">
+    {{- range $page.Pages }}
+      {{ partial "archive-item.html" . }}
+    {{- end }}
+  </ol>
+{{- end }}

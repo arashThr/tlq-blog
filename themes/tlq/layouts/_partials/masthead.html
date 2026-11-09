@@ -1,0 +1,21 @@
+{{- $cfg := partialCached "config.html" site.Home -}}
+{{- $notes := where site.RegularPages "Section" "posts" -}}
+{{- $n := len $notes -}}
+<header class="mast">
+  <a class="wordmark" href="{{ "/" | relURL }}">{{ site.Title }}</a>
+  <p class="mast-count">
+    {{- if eq $n 0 -}}
+      the shelf is empty
+    {{- else if eq $n 1 -}}
+      1 note on the shelf
+    {{- else -}}
+      {{ $n }} notes on the shelf
+    {{- end -}}
+  </p>
+  {{- with $cfg.tagline }}
+    <p class="tagline">{{ . }}</p>
+  {{- end }}
+  {{- with $cfg.description }}
+    <p class="mast-tag">{{ . }}</p>
+  {{- end }}
+</header>

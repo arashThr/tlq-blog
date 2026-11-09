@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale }}" dir="{{ or site.Language.Direction `ltr` }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  <a class="skip" href="#content">Skip to the note</a>
+  <div class="desk">
+    {{ partial "masthead.html" . }}
+    <div class="workspace">
+      <main id="content" class="sheet">
+        {{ block "main" . }}{{ end }}
+      </main>
+      {{ partial "sidebar.html" . }}
+    </div>
+    {{ partial "footer.html" . }}
+  </div>
+</body>
+</html>

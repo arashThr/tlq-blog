@@ -1,0 +1,21 @@
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = "0.146.0"
+
+# Defaults used when the site config does not set them.
+[params]
+  tagline = "The Last Question"
+  description = "A weblog for the TLQ podcast."
+  about = "The Last Question is a podcast. This is the weblog beside it. New notes are published here, one at a time."
+  podcast_label = "Listen to the show"
+  # Same families as --serif and --sans in assets/css/main.css.
+  fonts_url = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=Nunito+Sans:ital,opsz,wght@0,6..12,450;0,6..12,650;0,6..12,750;1,6..12,450&display=swap"
+  # Home lists this many notes, then adds newer/older pages.
+  home_paginate = 6
+  # Archive and tag lists page at this size.
+  archive_paginate = 25
+  # Titles in the "On the shelf" panel.
+  recent_count = 8
+  # Words kept for a home excerpt when a note has no description.
+  excerpt_words = 46

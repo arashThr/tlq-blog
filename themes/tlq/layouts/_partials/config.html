@@ -1,0 +1,20 @@
+{{- /*
+  Resolved site settings. Templates read this instead of repeating defaults.
+  Values come from the site hugo.toml, then themes/tlq/hugo.toml.
+  The fallbacks below match the theme file and apply only when both omit a key.
+*/ -}}
+{{- $p := site.Params -}}
+{{- return dict
+  "tagline" ($p.tagline | default "The Last Question")
+  "description" ($p.description | default "A weblog for the TLQ podcast.")
+  "about" ($p.about | default "The Last Question is a podcast. This is the weblog beside it. New notes are published here, one at a time.")
+  "byline" $p.byline
+  "podcast_url" $p.podcast_url
+  "podcast_label" ($p.podcast_label | default "Listen to the show")
+  "links" $p.links
+  "fonts_url" ($p.fonts_url | default "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=Nunito+Sans:ital,opsz,wght@0,6..12,450;0,6..12,650;0,6..12,750;1,6..12,450&display=swap")
+  "home_paginate" (or $p.home_paginate 6)
+  "archive_paginate" (or $p.archive_paginate 25)
+  "recent_count" (or $p.recent_count 8)
+  "excerpt_words" (or $p.excerpt_words 46)
+}}

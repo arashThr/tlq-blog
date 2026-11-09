@@ -1,0 +1,21 @@
+{{- /* Next moves toward newer notes. Prev moves toward older ones. */ -}}
+{{- $newer := .NextInSection -}}
+{{- $older := .PrevInSection -}}
+{{- if or $newer $older }}
+  <nav class="pager" aria-label="Other notes">
+    {{- with $newer }}
+      <a class="newer" href="{{ .RelPermalink }}">
+        <small>Newer</small>
+        <span>{{ .LinkTitle }}</span>
+      </a>
+    {{- else }}
+      <span></span>
+    {{- end }}
+    {{- with $older }}
+      <a class="older" href="{{ .RelPermalink }}">
+        <small>Older</small>
+        <span>{{ .LinkTitle }}</span>
+      </a>
+    {{- end }}
+  </nav>
+{{- end }}

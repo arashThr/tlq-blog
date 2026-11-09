@@ -1,0 +1,32 @@
+{{- $page := . -}}
+{{- $feature := partial "feature-src.html" $page -}}
+{{- $alt := $page.Title -}}
+{{- with $page.Params.featured_image_alt -}}
+  {{- $alt = . -}}
+{{- end -}}
+<figure class="feature">
+  {{- if $feature.src -}}
+    <img
+      src="{{ $feature.src }}"
+      alt="{{ $alt }}"
+      {{- with $feature.width }} width="{{ . }}"{{ end }}
+      {{- with $feature.height }} height="{{ . }}"{{ end }}
+      fetchpriority="high"
+    >
+    {{- with $page.Params.featured_image_caption }}
+      <figcaption>{{ . }}</figcaption>
+    {{- end }}
+  {{- else -}}
+    <div class="plate" aria-hidden="true">
+      <p class="plate-mark">{{ site.Title }}</p>
+      <p class="plate-sub">
+        {{- with $page.Params.episode -}}
+          Episode {{ . }}
+        {{- else -}}
+          Note
+        {{- end -}}
+      </p>
+      <p class="plate-serial">{{ $page.Date.Format "2006.01.02" }}</p>
+    </div>
+  {{- end -}}
+</figure>

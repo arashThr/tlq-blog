@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <header class="post-head">
+    <h1 class="post-title">{{ .Title }}</h1>
+  </header>
+  {{- with .Content }}
+    <div class="prose plain">{{ . }}</div>
+  {{- end }}
+  {{- if .Pages }}
+    <ul class="index-list">
+      {{- range .Pages }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+          <span class="count">{{ len .Pages }}</span>
+        </li>
+      {{- end }}
+    </ul>
+  {{- else }}
+    <p class="empty">Nothing filed here yet.</p>
+  {{- end }}
+{{ end }}

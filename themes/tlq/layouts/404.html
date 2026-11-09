@@ -1,0 +1,18 @@
+{{ define "main" }}
+  <article class="post">
+    <div class="feature">
+      <div class="plate" aria-hidden="true">
+        <p class="plate-mark">404</p>
+        <p class="plate-sub">Missing</p>
+        <p class="plate-serial">{{ site.Title }}</p>
+      </div>
+    </div>
+    <header class="post-head">
+      <h1 class="post-title">This page is not on the shelf</h1>
+    </header>
+    <div class="prose plain">
+      <p>The link may be old, or the note may have moved.</p>
+      <p><a href="{{ "/" | relURL }}">Back to recent notes</a></p>
+    </div>
+  </article>
+{{ end }}

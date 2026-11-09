@@ -1,0 +1,64 @@
+{{- $p := .page -}}
+{{- $cfg := partialCached "config.html" site.Home -}}
+{{- $limit := $cfg.excerpt_words -}}
+{{- $excerpt := "" -}}
+{{- with $p.Description -}}
+  {{- $excerpt = . | plainify | htmlUnescape | strings.TrimSpace -}}
+{{- else -}}
+  {{- $text := "" -}}
+  {{- range first 2 (findRE `(?s)<p[^>]*>.*?</p>` $p.Content) -}}
+    {{- $bit := . | plainify | htmlUnescape | strings.TrimSpace -}}
+    {{- if and $bit (lt (len (split $text " ")) 20) -}}
+      {{- $text = strings.TrimSpace (printf "%s %s" $text $bit) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if not $text -}}
+    {{- $text = $p.Plain | htmlUnescape | strings.TrimSpace -}}
+  {{- end -}}
+  {{- $bits := split $text " " -}}
+  {{- if gt (len $bits) $limit -}}
+    {{- $excerpt = printf "%s…" (delimit (first $limit $bits) " ") -}}
+  {{- else -}}
+    {{- $excerpt = $text -}}
+  {{- end -}}
+{{- end -}}
+{{- $feature := partial "feature-src.html" $p -}}
+<article class="note">
+  {{- with $feature.src -}}
+    <a class="note-media" href="{{ $p.RelPermalink }}">
+      <img
+        src="{{ . }}"
+        alt="{{ $p.Title }}"
+        {{- with $feature.width }} width="{{ . }}"{{ end }}
+        {{- with $feature.height }} height="{{ . }}"{{ end }}
+        {{- if $.latest }} fetchpriority="high"{{ end }}
+      >
+    </a>
+  {{- end }}
+  <header class="note-head">
+    {{- if .latest }}
+      <p class="kicker">Latest</p>
+    {{- end }}
+    <h2 class="note-title"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h2>
+    <p class="meta">
+      {{- with $p.Params.episode -}}
+        <span>Episode {{ . }}</span>
+        <span aria-hidden="true"> · </span>
+      {{- end -}}
+      <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date | time.Format ":date_long" }}</time>
+      <span aria-hidden="true"> · </span>
+      <span>{{ $p.ReadingTime }} min read</span>
+    </p>
+  </header>
+  {{- with $excerpt }}
+    <p class="excerpt">{{ . }}</p>
+  {{- end }}
+  {{- with $p.GetTerms "tags" }}
+    <ul class="tags">
+      {{- range . }}
+        <li><a href="{{ .RelPermalink }}">{{ .Data.Term | default .LinkTitle }}</a></li>
+      {{- end }}
+    </ul>
+  {{- end }}
+  <p class="more"><a href="{{ $p.RelPermalink }}">Read the note</a></p>
+</article>

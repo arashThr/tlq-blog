@@ -1,0 +1,32 @@
+{{- $p := . -}}
+<article class="post">
+  {{ partial "feature.html" $p }}
+  <header class="post-head">
+    <h1 class="post-title">{{ $p.Title }}</h1>
+    <p class="meta">
+      {{- with $p.Params.episode -}}
+        <span>Episode {{ . }}</span>
+        <span aria-hidden="true"> · </span>
+      {{- end -}}
+      <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date | time.Format ":date_long" }}</time>
+      <span aria-hidden="true"> · </span>
+      <span>{{ $p.ReadingTime }} min read</span>
+    </p>
+    {{- with $p.Description }}
+      <p class="deck">{{ . }}</p>
+    {{- end }}
+  </header>
+  <div class="prose">
+    {{ $p.Content }}
+  </div>
+  {{- $tags := $p.GetTerms "tags" -}}
+  {{- $categories := $p.GetTerms "categories" -}}
+  {{- $hasPager := or $p.PrevInSection $p.NextInSection -}}
+  {{- if or $tags (or $categories $hasPager) }}
+    <footer class="post-foot">
+      {{ partial "terms.html" (dict "taxonomy" "tags" "page" $p) }}
+      {{ partial "terms.html" (dict "taxonomy" "categories" "page" $p) }}
+      {{ partial "pager.html" $p }}
+    </footer>
+  {{- end }}
+</article>

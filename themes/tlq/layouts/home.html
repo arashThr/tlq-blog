@@ -1,0 +1,40 @@
+{{ define "main" }}
+  {{- $cfg := partialCached "config.html" site.Home -}}
+  {{- $posts := where site.RegularPages "Section" "posts" -}}
+  {{- with $posts -}}
+    <header class="list-head">
+      <h1 class="list-title">Recent notes</h1>
+      <p>Newest first.</p>
+    </header>
+    <div class="notes">
+      {{- if gt (len .) $cfg.home_paginate -}}
+        {{- $pager := $.Paginate . $cfg.home_paginate -}}
+        {{- range $i, $p := $pager.Pages }}
+          {{ partial "note-card.html" (dict "page" $p "latest" (and (eq $i 0) (eq $pager.PageNumber 1))) }}
+        {{- end }}
+        {{ partial "pagination.html" $pager }}
+      {{- else -}}
+        {{- range $i, $p := . }}
+          {{ partial "note-card.html" (dict "page" $p "latest" (eq $i 0)) }}
+        {{- end }}
+      {{- end }}
+    </div>
+  {{- else -}}
+    <article class="post">
+      <div class="feature">
+        <div class="plate" aria-hidden="true">
+          <p class="plate-mark">{{ site.Title }}</p>
+          <p class="plate-sub">Waiting</p>
+          <p class="plate-serial">——</p>
+        </div>
+      </div>
+      <header class="post-head">
+        <h1 class="post-title">The desk is clear</h1>
+      </header>
+      <div class="prose plain">
+        <p>Nothing has been published yet. Notes will be listed in this column, newest first. The shelf, the feed, and the way around the site stay on the right.</p>
+        <p>A post stays off the desk while <code>draft</code> is true. Publish it, or preview the site with <code>hugo server -D</code>.</p>
+      </div>
+    </article>
+  {{- end -}}
+{{ end }}

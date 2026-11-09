@@ -1,0 +1,5 @@
+{{- $cfg := partialCached "config.html" site.Home -}}
+<footer class="colophon">
+  <p><a href="{{ "/" | relURL }}">{{ site.Title }}</a>{{ with $cfg.tagline }} · {{ . }}{{ end }}</p>
+  <p>© {{ now.Year }} {{ with $cfg.byline }}{{ . }}{{ else }}{{ site.Title }}{{ end }}. Built with <a href="https://gohugo.io/">Hugo</a>.</p>
+</footer>

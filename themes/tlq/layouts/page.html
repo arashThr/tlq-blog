@@ -1,0 +1,14 @@
+{{ define "main" }}
+  {{- if eq .Section "posts" -}}
+    {{ partial "post.html" . }}
+  {{- else -}}
+    <article class="post">
+      <header class="post-head">
+        <h1 class="post-title">{{ .Title }}</h1>
+      </header>
+      <div class="prose">
+        {{ .Content }}
+      </div>
+    </article>
+  {{- end -}}
+{{ end }}
