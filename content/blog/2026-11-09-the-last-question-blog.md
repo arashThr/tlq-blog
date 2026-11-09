@@ -14,4 +14,4 @@ We thought we'd need a place to share more about our findings during the week, a
 
 Don't forget to subscribe to our YouTube channel and join the [Telegram channel](https://t.me/tlqdev).
 
-You can also follow [Arash](https://x.com/rshthr) and [Amin](https://x.com/marashiai) on X, or [Arash](https://arashtaher.com/) and [Amin](https://amin.codes/) on their weblogs.
+You can also follow [Arash](https://x.com/rshthr) and [Amin](https://x.com/marashiai) on X, or [Arash](https://arashtaher.com/) and [Amin](https://marashi.ai/) on their weblogs.
