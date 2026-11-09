@@ -1,6 +1,6 @@
 {{ define "main" }}
   {{- $cfg := partialCached "config.html" site.Home -}}
-  {{- $posts := where site.RegularPages "Section" "posts" -}}
+  {{- $posts := where site.RegularPages "Section" $cfg.section -}}
   {{- with $posts -}}
     <header class="list-head">
       <h1 class="list-title">Recent notes</h1>

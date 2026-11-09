@@ -19,3 +19,5 @@
   recent_count = 8
   # Words kept for a home excerpt when a note has no description.
   excerpt_words = 46
+  # Content folder whose pages are notes. Override in the site config.
+  section = "posts"

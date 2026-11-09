@@ -8,7 +8,7 @@ The page is a warm desk. The left column is the sheet. The right column is the s
 
 - Home lists recent notes, newest first. It does not print a whole note.
 - A note’s own page prints the full note, with its picture or the colored plate.
-- Archive (`/posts`) stays a dated list. Tag pages use that same list.
+- Archive stays a dated list of the notes section (`params.section`, `/blog` on this site). Tag pages use that same list.
 - The right column keeps About, the menu, On the shelf, and, when configured, Elsewhere and The show.
 
 Mainroad (https://hugothemes.gitlab.io/mainroad/) is the reference for the home list only: title, date, a short excerpt, and a link to the note. The desk, the colors, and the right-hand column stay as they are.
@@ -31,6 +31,7 @@ Edit the site `hugo.toml` under `[params]`. If a key is missing there, `themes/t
 | `archive_paginate` | Notes on an archive or tag page before it pages |
 | `recent_count` | Titles in On the shelf |
 | `excerpt_words` | Words kept from a note that has no description |
+| `section` | Content folder treated as notes, for example `blog` |
 
 A note’s `description` in front matter becomes its home excerpt. With no description, the excerpt is the opening paragraph (the next one too, if the first is very short), cut at `excerpt_words`.
 

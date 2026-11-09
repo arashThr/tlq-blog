@@ -1,5 +1,6 @@
 {{ define "main" }}
-  {{- if eq .Section "posts" -}}
+  {{- $cfg := partialCached "config.html" site.Home -}}
+  {{- if eq .Section $cfg.section -}}
     {{ partial "post.html" . }}
   {{- else -}}
     <article class="post">

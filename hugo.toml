@@ -20,6 +20,8 @@ theme = 'tlq'
   archive_paginate = 25
   recent_count = 8
   excerpt_words = 46
+  # Notes live in content/<section>/.
+  section = 'blog'
 
   # Extra links for the right-hand column. Uncomment to add one.
   # [[params.links]]
@@ -34,5 +36,5 @@ theme = 'tlq'
 
   [[menus.main]]
     name = 'Archive'
-    pageRef = '/posts'
+    pageRef = '/blog'
     weight = 20

@@ -16,7 +16,7 @@
       <nav class="menu" aria-label="Main">
         <ul>
           <li><a href="{{ "/" | relURL }}"{{ if .IsHome }} aria-current="page"{{ end }}>Home</a></li>
-          <li><a href="{{ "posts/" | relURL }}"{{ if eq .Section "posts" }} class="ancestor"{{ end }}>Archive</a></li>
+          <li><a href="{{ (printf "%s/" $cfg.section) | relURL }}"{{ if eq .Section $cfg.section }} class="ancestor"{{ end }}>Archive</a></li>
         </ul>
       </nav>
     {{- end }}
@@ -36,7 +36,7 @@
     </ul>
   </section>
 
-  {{- $recent := first $cfg.recent_count (where site.RegularPages "Section" "posts") -}}
+  {{- $recent := first $cfg.recent_count (where site.RegularPages "Section" $cfg.section) -}}
   {{- with $recent }}
     <section class="panel">
       <h2>On the shelf</h2>

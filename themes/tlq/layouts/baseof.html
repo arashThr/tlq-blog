@@ -1,5 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ site.Language.Locale }}" dir="{{ or site.Language.Direction `ltr` }}">
+{{- /* Locale and Direction arrived in Hugo 0.158. Cloudflare builds with 0.147. */ -}}
+{{- $minor := int (index (split hugo.Version ".") 1) -}}
+{{- $locale := "en" -}}
+{{- $dir := "ltr" -}}
+{{- if ge $minor 158 -}}
+  {{- with site.Language.Locale }}{{ $locale = . }}{{ end -}}
+  {{- with site.Language.Direction }}{{ $dir = . }}{{ end -}}
+{{- else -}}
+  {{- with site.Language.LanguageCode }}{{ $locale = . }}{{ end -}}
+  {{- with site.Language.LanguageDirection }}{{ $dir = . }}{{ end -}}
+{{- end -}}
+<html lang="{{ $locale }}" dir="{{ $dir }}">
 <head>
   {{ partial "head.html" . }}
 </head>

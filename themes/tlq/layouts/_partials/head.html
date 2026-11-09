@@ -30,7 +30,7 @@
 {{- end }}
 {{- $imagePage := . -}}
 {{- if .IsHome -}}
-  {{- with index (where site.RegularPages "Section" "posts") 0 -}}
+  {{- with index (where site.RegularPages "Section" $cfg.section) 0 -}}
     {{- $imagePage = . -}}
   {{- end -}}
 {{- end }}

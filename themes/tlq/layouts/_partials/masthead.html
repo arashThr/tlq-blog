@@ -1,5 +1,5 @@
 {{- $cfg := partialCached "config.html" site.Home -}}
-{{- $notes := where site.RegularPages "Section" "posts" -}}
+{{- $notes := where site.RegularPages "Section" $cfg.section -}}
 {{- $n := len $notes -}}
 <header class="mast">
   <a class="wordmark" href="{{ "/" | relURL }}">{{ site.Title }}</a>
